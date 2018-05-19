@@ -1,0 +1,18 @@
+{
+  "generator-openapi-repo": {
+    "name": "Don Boulton REST",
+    "description": "api spec for donboulton.com",
+    "version": "2.1",
+    "email": "donaldboulton@gmail.com",
+    "username": "donaldboulton API Support",
+    "redocVersion": "latest",
+    "travis": true,
+    "repo": "donaldboulton/donboulton-openapi-spec",
+    "packageName": "donboulton-openapi-spec",
+    "specVersion": "0.0.1",
+    "samples": true,
+    "installSwaggerUI": false,
+    "branchPreview": true,
+    "splitSpec": true
+  }
+}
