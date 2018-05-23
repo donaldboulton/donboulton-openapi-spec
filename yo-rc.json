@@ -1,5 +1,5 @@
 {
-  "generator-openapi-repo": {
+  "donboulton-openapi-repo": {
     "name": "Don Boulton REST",
     "description": "api spec for donboulton.com",
     "version": "2.1",

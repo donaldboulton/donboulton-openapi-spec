@@ -1,5 +1,5 @@
 {
-  "name": "generator-openapi-repo",
+  "name": "donboulton-openapi-repo",
   "version": "1.0.1",
   "description": "Yeoman generator for OpenAPI(fka Swagger) repo to help you share spec for your API",
   "author": {
@@ -47,7 +47,7 @@
   "eslintConfig": {
     "extends": "xo-space"
   },
-  "repository": "Rebilly/generator-openapi-repo",
+  "repository": "Rebilly/donboulton-openapi-repo",
   "scripts": {
     "prepublish": "gulp prepublish"
   },
