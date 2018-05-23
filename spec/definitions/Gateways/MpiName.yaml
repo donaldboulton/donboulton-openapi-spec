@@ -1,0 +1,12 @@
+description: The Merchant plug-in Name
+type: string
+enum:
+ - PayvisionMpi
+ - WirecardMpi
+ - IlixiumMpi
+ - DataCashMpi
+ - OptimalMpi
+ - GlobalCollectMpi
+ - CardinalCommerce
+ - PaayMpi
+ - Other

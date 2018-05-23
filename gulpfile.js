@@ -1,50 +1,32 @@
-var gulp = require('gulp');
-var util = require('gulp-util')
-var gulpConnect = require('gulp-connect');
-var connect = require('connect');
-var cors = require('cors');
-var path = require('path');
-var exec = require('child_process').exec;
-var portfinder = require('portfinder');
-var swaggerRepo = require('swagger-repo');
+const dotenv = require('dotenv')
+dotenv.config()
 
-var DIST_DIR = 'web_deploy';
+const gulp = require('gulp')
+const requireDir = require('require-dir')
 
-gulp.task('serve', ['build', 'watch', 'edit'], function() {
-  portfinder.getPort({port: 3000}, function (err, port) {
-    gulpConnect.server({
-      root: [DIST_DIR],
-      livereload: true,
-      port: port,
-      middleware: function (gulpConnect, opt) {
-        return [
-          cors()
-        ]
-      }
-    });
-  });
-});
+requireDir('gulp', {
+  recurse: true
+})
 
-gulp.task('edit', function() {
-  portfinder.getPort({port: 5000}, function (err, port) {
-    var app = connect();
-    app.use(swaggerRepo.swaggerEditorMiddleware());
-    app.listen(port);
-    util.log(util.colors.green('swagger-editor started http://localhost:' + port));
-  });
-});
+gulp.task('build', gulp.series(
+  'clean',
+  'fonts',
+  'icons',
+  'images',
+  'scripts',
+  'styles',
+  'shopify'
+))
 
-gulp.task('build', function (cb) {
-  exec('npm run build', function (err, stdout, stderr) {
-    console.log(stderr);
-    cb(err);
-  });
-});
+gulp.task('release', gulp.series('build', 'zip', 'openBrowser'))
 
-gulp.task('reload', ['build'], function () {
-  gulp.src(DIST_DIR).pipe(gulpConnect.reload())
-});
+gulp.task('serve', gulp.parallel(
+  'browser-sync',
+  'theme:init',
+  'theme:watch',
+  'watch'
+))
 
-gulp.task('watch', function () {
-  gulp.watch(['spec/**/*', 'web/**/*'], ['reload']);
-});
+gulp.task('full-deploy', gulp.series('build', 'deploy'))
+
+gulp.task('default', gulp.series('build', 'serve'))

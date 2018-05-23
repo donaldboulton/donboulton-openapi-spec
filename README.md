@@ -1,43 +1,50 @@
-# Y OpenAPI Specification
-[![Build Status](https://travis-ci.org/donaldboulton/donboulton-openapi-spec.svg?branch=master)](https://travis-ci.org/donaldboulton/donboulton-openapi-spec)
+# donboulton-shopify
 
-## Steps to finish
+## Scaffolded by Shopify Skeleton Version 3.2.4
 
-1. Enable [Travis](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A) for your repository (**note**: you already have `.travis.yml` file)
-2. [Create GitHub access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/); check `public_repo` on `Select scopes` section.
-3. Use the token value as a value for [Travis environment variable](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings) with the name `GH_TOKEN`
-4. Make a test commit to trigger CI: `git commit --allow-empty -m "Test Travis CI" && git push`
-5. Wait until Travis build is finished. You can check progress by clicking on the `Build Status` badge at the top
-6. If you did everything correct, https://donaldboulton.github.io/donboulton-openapi-spec/ will lead to your new docs
-7. **[Optional]** You can setup [custom domain](https://help.github.com/articles/using-a-custom-domain-with-github-pages/) (just create `web/CNAME` file)
-8. Start writing/editing your OpenAPI spec: check out [usage](#usage) section below
-9. **[Optional]** If you document public API consider adding it into [APIs.guru](https://APIs.guru) directory using [this form](https://apis.guru/add-api/).
-10. Delete this section :smile:
+Easy Shopify Development 💅
 
-## Links
+## Important
 
-- Documentation(ReDoc): https://donaldboulton.github.io/donboulton-openapi-spec/
-- SwaggerUI: https://donaldboulton.github.io/donboulton-openapi-spec/swagger-ui/
-- Look full spec:
-    + JSON https://donaldboulton.github.io/donboulton-openapi-spec/swagger.json
-    + YAML https://donaldboulton.github.io/donboulton-openapi-spec/swagger.yaml
-- Preview spec version for branch `[branch]`: https://donaldboulton.github.io/donboulton-openapi-spec/preview/[branch]
+Your code will *not* compile unless you provide your Shopify API variables for the deploy task.
+Add them in the `.env` they will not be commited or shared this is for security reasons.
 
-**Warning:** All above links are updated only after Travis CI finishes deployment
 
-## Working on specification
-### Install
+## Quick Start
 
-1. Install [Node JS](https://nodejs.org/)
-2. Clone repo and `cd`
-    + Run `npm install`
+Compile things and auto upload to shopify
 
-### Usage
+```bash
+$ npm run code
+```
 
-1. Run `npm start`
-2. Checkout console output to see where local server is started. You can use all [links](#links) (except `preview`) by replacing https://donaldboulton.github.io/donboulton-openapi-spec/ with url from the message: `Server started <url>`
-3. Make changes using your favorite editor or `swagger-editor` (look for URL in console output)
-4. All changes are immediately propagated to your local server, moreover all documentation pages will be automagically refreshed in a browser after each change
-**TIP:** you can open `swagger-editor`, documentation and `swagger-ui` in parallel
-5. Once you finish with the changes you can run tests using: `npm test`
-6. Share you changes with the rest of the world by pushing to GitHub :smile:
+Zip everything and code in production mode
+
+```bash
+$ npm run build
+```
+
+Full Deployment (useful with CI or during first time upload)
+
+```bash
+$ npm run deploy
+```
+
+Delete Theme Files. Use with care!! (Good during first time upload)
+
+```bash
+$ npm run kill-theme
+```
+
+## Features
+
+- Sourcemaps
+- JS with Browserify and ES6 (Just require your problems away)
+- Split vendor and app code (both JS and CSS)
+- SVG System
+- Shopify Plus in mind (Checkout layouts)
+- Sensible starting points (all in blank but already wired up)
+- Based of Gulp 4
+- Live reloading with Browser Sync
+- Zip everything in the end
+
