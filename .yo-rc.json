@@ -1,9 +1,9 @@
 {
   "generator-openapi-repo": {
     "importExistingSpec": false,
-    "name": "donboulton",
-    "repo": "donaldboulton/generator-openapi-repo",
-    "splitSpec": true,
+    "name": "Y",
+    "repo": "donaldboulton/donboulton-openapi-spec",
+    "splitSpec": false,
     "samples": true,
     "installSwaggerUI": true
   }
