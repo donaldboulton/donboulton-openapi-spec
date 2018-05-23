@@ -1,25 +1,50 @@
-'use strict';
-var path = require('path');
 var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var excludeGitignore = require('gulp-exclude-gitignore');
-var nsp = require('gulp-nsp');
+var util = require('gulp-util')
+var gulpConnect = require('gulp-connect');
+var connect = require('connect');
+var cors = require('cors');
+var path = require('path');
+var exec = require('child_process').exec;
+var portfinder = require('portfinder');
+var swaggerRepo = require('swagger-repo');
 
-gulp.task('static', function () {
-  return gulp.src('**/*.js')
-    .pipe(excludeGitignore())
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+var DIST_DIR = 'web_deploy';
+
+gulp.task('serve', ['build', 'watch', 'edit'], function() {
+  portfinder.getPort({port: 3000}, function (err, port) {
+    gulpConnect.server({
+      root: [DIST_DIR],
+      livereload: true,
+      port: port,
+      middleware: function (gulpConnect, opt) {
+        return [
+          cors()
+        ]
+      }
+    });
+  });
 });
 
-gulp.task('nsp', function (cb) {
-  nsp({package: path.resolve('package.json')}, cb);
+gulp.task('edit', function() {
+  portfinder.getPort({port: 5000}, function (err, port) {
+    var app = connect();
+    app.use(swaggerRepo.swaggerEditorMiddleware());
+    app.listen(port);
+    util.log(util.colors.green('swagger-editor started http://localhost:' + port));
+  });
+});
+
+gulp.task('build', function (cb) {
+  exec('npm run build', function (err, stdout, stderr) {
+    console.log(stderr);
+    cb(err);
+  });
+});
+
+gulp.task('reload', ['build'], function () {
+  gulp.src(DIST_DIR).pipe(gulpConnect.reload())
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['generators/**/*.js', 'test/**'], ['test']);
+  gulp.watch(['spec/**/*', 'web/**/*'], ['reload']);
 });
-
-gulp.task('prepublish', ['nsp']);
-gulp.task('default', ['static', 'test']);
